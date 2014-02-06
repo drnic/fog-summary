@@ -1,3 +1,52 @@
 #!/usr/bin/env ruby
 
+$:.unshift(File.expand_path("../../lib", __FILE__))
 require 'fog/summary'
+require 'yaml'
+require 'fog'
+
+fog_file = ENV['FOG_FILE'] || File.expand_path("~/.fog")
+fog_connections = YAML.load_file(fog_file)
+
+def provider(credentials)
+  return "AWS" if credentials[:aws_access_key_id]
+  return "OpenStack" if credentials[:openstack_auth_url]
+  nil
+end
+
+def label(credentials)
+  case provider(credentials)
+  when "AWS"
+    "AWS (#{credentials[:aws_access_key_id]})"
+  when "OpenStack"
+    auth_url = credentials[:openstack_auth_url]
+    username = credentials[:openstack_username]
+    "OpenStack (#{auth_url} / #{username})"
+  end
+end
+
+def flavors(provider, compute, servers)
+  servers && case provider
+  when "AWS"
+    servers.map(&:flavor_id)
+  when "OpenStack"
+    servers.map(&:flavor).map do |flavor_info|
+      id = flavor_info['id']
+      compute.flavors.get(id).name
+    end
+  end
+end
+
+fog_connections.each do |key, credentials|
+  puts ""
+  puts "#{key}: #{label(credentials)}"
+  provider = provider(credentials)
+  begin
+    compute = Fog::Compute.new(credentials.merge(provider: provider))
+    servers = compute.servers
+    flavors = flavors(provider, compute, servers)
+    puts "servers: #{servers.size} - #{flavors.join(', ')}"
+  rescue StandardError => e
+    puts e.message
+  end
+end
