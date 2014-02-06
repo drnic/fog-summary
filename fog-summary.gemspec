@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Fog::Summary::VERSION
   spec.authors       = ["Dr Nic Williams"]
   spec.email         = ["drnicwilliams@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Display summary of all accounts mentioned in ~/.fog}
+  spec.description   = %q{Display summary of all accounts mentioned in ~/.fog}
   spec.homepage      = ""
   spec.license       = "MIT"
 
