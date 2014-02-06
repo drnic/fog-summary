@@ -71,8 +71,9 @@ fog_connections.each do |key, credentials|
   begin
     network = Fog::Network.new(credentials.merge(provider: provider))
     subnets = network.subnets.map(&:name)
+    puts "networking: yes"
     puts "subnets: #{subnets.join(', ')}"
   rescue StandardError => e
-    puts "Networking: unavailable"
+    puts "networking: no"
   end
 end
