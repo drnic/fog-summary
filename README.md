@@ -1,28 +1,42 @@
-# Fog::Summary
+# fog-summary
 
-TODO: Write a gem description
+Display summary of all accounts mentioned in `~/.fog` (or `$FOG_FILE`).
+
+```
+$ fog-summary --skip swisscom-cf-swifttest --skip bluebox-demo --skip attdfw2
+
+default: AWS (PERSONAL_ACCESS_KEY)
+AuthFailure => AWS was not able to validate the provided access credentials
+
+starkandwayne: AWS (AKIAI7ZLXAD...)
+servers: 3 - m1.small, m1.small, m1.small
+Networking: unavailable
+
+swblobstore: AWS (AKIAJ56O7S3CJFUZGGJA)
+UnauthorizedOperation => You are not authorized to perform this operation.
+
+customer1: OpenStack (https://identity.customer.com/v2.0/tokens / cftest)
+servers: 16 - s1.micro, s1.small, s1.medium, s1.medium, s1.micro, s1.micro, s1.micro, s1.large, s1.micro, s1.small, s1.small, s1.medium, s1.micro, s1.micro, s1.small, s1.micro
+subnets: Internal-VM-NET, Internal-L3-DEV, INTERNET, Internet Access, SW_CF_Internet
+```
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Install via RubyGems:
 
-    gem 'fog-summary'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install fog-summary
+    gem fog-summary
 
 ## Usage
 
-TODO: Write usage instructions here
+Execute from the terminal:
+
+    $ fog-summary
+    $ fog-summary --skip key-to-skip
+
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/fog-summary/fork )
+1. Fork it ( http://github.com/drnic/fog-summary/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
