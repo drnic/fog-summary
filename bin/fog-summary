@@ -49,6 +49,10 @@ def flavors(provider, compute, servers)
   end
 end
 
+def networking?(fog_network)
+  
+end
+
 fog_connections.each do |key, credentials|
   next if skip_keys.include?(key.to_s)
   puts ""
@@ -61,5 +65,14 @@ fog_connections.each do |key, credentials|
     puts "servers: #{servers.size} - #{flavors.join(', ')}"
   rescue StandardError => e
     puts e.message
+    next
+  end
+
+  begin
+    network = Fog::Network.new(credentials.merge(provider: provider))
+    subnets = network.subnets.map(&:name)
+    puts "subnets: #{subnets.join(', ')}"
+  rescue StandardError => e
+    puts "Networking: unavailable"
   end
 end
