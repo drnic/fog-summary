@@ -36,6 +36,8 @@ Execute from the terminal:
 
 ## Contributing
 
+WARNING: This was a quick hack where all the code is in `bin/fog-summary`. If you really want to contribute; probably start the project from scratch.
+
 1. Fork it ( http://github.com/drnic/fog-summary/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
