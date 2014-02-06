@@ -5,6 +5,18 @@ require 'fog/summary'
 require 'yaml'
 require 'fog'
 
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("--skip KEY", "Skip fog providers by key") do |key|
+    options[:skip] ||= []
+    options[:skip] << key
+  end
+end.parse!
+
+skip_keys = options[:skip]
+
 fog_file = ENV['FOG_FILE'] || File.expand_path("~/.fog")
 fog_connections = YAML.load_file(fog_file)
 
@@ -38,6 +50,7 @@ def flavors(provider, compute, servers)
 end
 
 fog_connections.each do |key, credentials|
+  next if skip_keys.include?(key.to_s)
   puts ""
   puts "#{key}: #{label(credentials)}"
   provider = provider(credentials)
