@@ -4,6 +4,7 @@ $:.unshift(File.expand_path("../../lib", __FILE__))
 require 'fog/summary'
 require 'yaml'
 require 'fog'
+require 'optparse'
 
 options = {}
 OptionParser.new do |opts|
