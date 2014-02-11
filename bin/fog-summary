@@ -16,10 +16,13 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-skip_keys = options[:skip]
+skip_keys = options[:skip] || []
 
 fog_file = ENV['FOG_FILE'] || File.expand_path("~/.fog")
-fog_connections = YAML.load_file(fog_file)
+unless fog_connections = YAML.load_file(fog_file)
+  $stderr.puts "ERROR: loading #{fog_file}"
+  exit 1
+end
 
 def provider(credentials)
   return "AWS" if credentials[:aws_access_key_id]
