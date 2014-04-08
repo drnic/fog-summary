@@ -12,7 +12,7 @@ starkandwayne: AWS (AKIAI7ZLXAD...)
 servers: 3 - m1.small, m1.small, m1.small
 Networking: unavailable
 
-swblobstore: AWS (AKIAJ56O7S3CJFUZGGJA)
+swblobstore: AWS (AKIAJ56O7S3CJFUZ....)
 UnauthorizedOperation => You are not authorized to perform this operation.
 
 customer1: OpenStack (https://identity.customer.com/v2.0/tokens / cftest)
